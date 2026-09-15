@@ -1,0 +1,110 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import LegalShell from '@/components/LegalShell.astro';
+---
+
+<Layout
+  title="Política de Cookies · Kardia"
+  description="Qué cookies y almacenamiento utiliza la web de Kardia, para qué sirven y cómo aceptar, rechazar o desactivar su uso desde el navegador."
+>
+  <LegalShell titulo="Política de Cookies">
+    <h2>1. Qué son las cookies</h2>
+    <p>
+      Las cookies son pequeños archivos o almacenamientos de información que se descargan en tu dispositivo al visitar
+      una página web. Sirven, entre otras cosas, para recordar tus preferencias, permitir el funcionamiento técnico
+      del sitio o mostrar determinados contenidos embebidos. Esta política también se aplica a tecnologías similares,
+      como el almacenamiento local (localStorage) que utilizamos para recordar tu decisión sobre las cookies.
+    </p>
+
+    <h2>2. Base legal</h2>
+    <p>
+      De acuerdo con el artículo 22.2 de la Ley 34/2002 (LSSI-CE), para el uso de cookies que no sean estrictamente
+      necesarias solicitamos tu consentimiento previo. Puedes aceptar o rechazar dicho uso desde el aviso que aparece
+      al entrar en la web, y cambiar tu decisión en cualquier momento desde esta página o desde el propio aviso.
+    </p>
+
+    <h2>3. Cookies y almacenamiento que utilizamos</h2>
+    <h3>Propias y técnicas</h3>
+    <ul>
+      <li>
+        kardia-consent (almacenamiento local): guarda si has aceptado o rechazado las cookies. Es imprescindible para
+        recordar tu elección y no volver a preguntarte en cada visita. No contiene datos personales y no se comparte
+        con terceros.
+      </li>
+    </ul>
+    <h3>De terceros (solo con consentimiento)</h3>
+    <ul>
+      <li>
+        Google Maps (Google Ireland Limited): el mapa de ubicación se carga únicamente si aceptas las cookies. Al
+        cargarse, Google puede instalar cookies y recoger datos como tu dirección IP o información del navegador
+        conforme a su propia política de privacidad.
+      </li>
+    </ul>
+
+    <h2>4. Gestiona tu decisión</h2>
+    <p>
+      Puedes aceptar o rechazar las cookies en cualquier momento desde aquí. Tu elección se guarda en este dispositivo
+      y puedes cambiarla tantas veces como quieras: si rechazas, el mapa de Google deja de cargarse de inmediato.
+    </p>
+    <div class="rounded-plate border border-line bg-paper-2 px-6 pt-6 pb-[1.6rem]">
+      <p class="consent-state flex items-center gap-[0.6rem] text-[0.9rem] leading-[1.4] text-ink-soft">
+        Ahora mismo: <strong><span data-consent-label></span></strong>
+      </p>
+      <div class="mt-[1.35rem] flex flex-wrap gap-[0.6rem]">
+        <button
+          class="group inline-flex items-center gap-[0.65rem] rounded-control border px-[1.4rem] py-[0.85rem] text-[0.86rem] font-medium leading-none tracking-[0.01em] active:scale-[0.975] [transition:transform_160ms_var(--ease-out-strong),background-color_220ms_var(--ease-out-strong),border-color_220ms_var(--ease-out-strong),color_220ms_var(--ease-out-strong)] data-[active=true]:outline-1 data-[active=true]:outline-clay data-[active=true]:outline-offset-[3px] border-transparent bg-terracotta-deep text-paper hover:bg-terracotta-dark"
+          type="button"
+          data-consent-action="accept">Aceptar</button
+        >
+        <button
+          class="group inline-flex items-center gap-[0.65rem] rounded-control border px-[1.4rem] py-[0.85rem] text-[0.86rem] font-medium leading-none tracking-[0.01em] active:scale-[0.975] [transition:transform_160ms_var(--ease-out-strong),background-color_220ms_var(--ease-out-strong),border-color_220ms_var(--ease-out-strong),color_220ms_var(--ease-out-strong)] data-[active=true]:outline-1 data-[active=true]:outline-clay data-[active=true]:outline-offset-[3px] border-ink/34 text-ink hover:border-ink hover:bg-ink/6"
+          type="button"
+          data-consent-action="reject">Rechazar</button
+        >
+      </div>
+    </div>
+    <p>
+      Si lo prefieres, también puedes borrar o bloquear las cookies desde la configuración de tu navegador (punto 5).
+    </p>
+
+    <h2>5. Cómo desactivar las cookies en tu navegador</h2>
+    <p>
+      Todos los navegadores permiten bloquear o eliminar cookies desde sus opciones de configuración o privacidad. Ten
+      en cuenta que si las bloqueas por completo, algunas funcionalidades de la web (como el mapa) pueden no mostrarse
+      correctamente.
+    </p>
+    <ul>
+      <li>Google Chrome: Configuración → Privacidad y seguridad → Cookies y otros datos de sitios.</li>
+      <li>Mozilla Firefox: Ajustes → Privacidad y seguridad → Cookies y datos del sitio.</li>
+      <li>Safari: Preferencias → Privacidad → Gestionar datos de sitios web.</li>
+      <li>Microsoft Edge: Configuración → Cookies y permisos del sitio.</li>
+    </ul>
+
+    <h2>6. Actualizaciones de esta política</h2>
+    <p>
+      Podemos modificar esta política de cookies cuando cambien los servicios utilizados o la normativa aplicable. Te
+      recomendamos revisarla periódicamente. Para cualquier duda, escríbenos a
+      <a href="mailto:kardiaformacion@gmail.com">kardiaformacion@gmail.com</a>.
+    </p>
+  </LegalShell>
+</Layout>
+
+<style>
+  .consent-state::before {
+    content: "";
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--color-clay);
+    transition: background-color 260ms var(--ease-out-strong);
+  }
+
+  :global(html[data-consent="accepted"]) .consent-state::before {
+    background: var(--color-terracotta);
+  }
+
+  :global(html[data-consent="rejected"]) .consent-state::before {
+    background: var(--color-ink-faint);
+  }
+</style>
