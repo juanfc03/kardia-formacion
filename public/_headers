@@ -1,0 +1,15 @@
+# Cabeceras de caché. Netlify lee este archivo del directorio publicado: como
+# Astro copia public/ a dist/, viaja dentro de la carpeta que subes a mano y no
+# se sirve públicamente (Netlify lo consume). Es el equivalente manual de
+# [[headers]] en netlify.toml, que sólo se lee en los deploys desde Git.
+#
+# Todo lo que hay en /_astro/ lleva un hash en el nombre (imágenes, el JS del
+# router), así que puede cachearse para siempre. El resto se revalida siempre
+# para que un deploy nuevo se vea al instante (la tarjeta Open Graph, por
+# ejemplo, no lleva hash).
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  Cache-Control: public, max-age=0, must-revalidate
