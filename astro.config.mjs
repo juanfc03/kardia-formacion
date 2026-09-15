@@ -5,18 +5,19 @@ import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
+// Configuración de Astro: https://astro.build/config
 export default defineConfig({
   site: 'https://kardiaformacion.es',
   trailingSlash: 'always',
   compressHTML: true,
 
-  // Fonts are self-hosted at build time via Astro's Fonts API (Fontsource provider).
-  // Add/remove a family here, then render its <Font /> in src/layouts/Layout.astro
-  // and (optionally) map it to a Tailwind token in src/styles/global.css.
+  // Las fuentes se autoalojan en el build con la API de fuentes de Astro
+  // (proveedor Fontsource). Para añadir o quitar una familia, edítala aquí,
+  // renderiza su <Font /> en src/layouts/Layout.astro y, si quieres, mapéala a un
+  // token de Tailwind en src/styles/global.css.
   fonts: [
     {
-      // Display serif: editorial voice, real italic with SOFT + WONK axes.
+      // Serif display: voz editorial, itálica real con ejes SOFT + WONK.
       name: 'Fraunces',
       cssVariable: '--font-fraunces',
       provider: fontProviders.fontsource(),
@@ -26,7 +27,7 @@ export default defineConfig({
       fallbacks: ['Georgia', 'serif'],
     },
     {
-      // Body sans: neutral, uppercase labels and long-form text.
+      // Sans de cuerpo: neutra, para etiquetas en mayúsculas y texto largo.
       name: 'Inter',
       cssVariable: '--font-inter',
       provider: fontProviders.fontsource(),
@@ -42,8 +43,30 @@ export default defineConfig({
   },
 
   vite: {
+    // esbuild y no lightningcss: lightningcss pliega `animation-timeline` dentro
+    // del shorthand `animation` y borra el `backdrop-filter` sin prefijo, y las
+    // dos declaraciones resultantes son inválidas en el Chrome actual. esbuild
+    // las deja tal cual se escribieron, así que sobreviven las animaciones por
+    // scroll y el desenfoque de la cabecera.
+    build: {
+      cssMinify: 'esbuild',
+    },
     plugins: [tailwindcss()],
   },
 
-  integrations: [sitemap()],
+  integrations: [
+    // Las páginas legales se quedan fuera del sitemap: no interesa indexarlas.
+    sitemap({
+      serialize(item) {
+        if (
+          /aviso-legal|politica-de-cookies|politica-de-privacidad/.test(
+            item.url,
+          )
+        ) {
+          return undefined;
+        }
+        return item;
+      },
+    }),
+  ],
 });
