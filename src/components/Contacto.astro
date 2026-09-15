@@ -1,0 +1,409 @@
+---
+import SectionLabel from '@/components/SectionLabel.astro';
+
+const canales = [
+  {
+    nombre: 'Instagram',
+    valor: '@kardia.formacion',
+    href: 'https://www.instagram.com/kardia.formacion/',
+    externo: true,
+    nota: 'Envíanos un mensaje y nos pondremos en contigo lo antes posible.',
+  },
+  {
+    nombre: 'Email',
+    valor: 'kardiaformacion@gmail.com',
+    href: 'mailto:kardiaformacion@gmail.com',
+    externo: false,
+    nota: 'Por favor, ten paciencia, nos pondremos en cuando podamos.',
+  },
+  {
+    nombre: 'Teléfono',
+    valor: '614 877 104',
+    href: 'tel:+34614877104',
+    externo: false,
+    nota: 'Habla con nosotros y ve cómo podemos ayudarte.',
+  },
+];
+
+const proteccion = [
+  { etiqueta: 'Responsable', texto: 'KARDIA - CENTRO DE FORMACIÓN' },
+  {
+    etiqueta: 'Finalidad',
+    texto:
+      'Mantener una relación comercial (por interés legítimo del responsable, art. 6.1.f RGPD) y el envío de comunicaciones de productos o servicios (por consentimiento del interesado, art. 6.1.a RGPD).',
+  },
+  {
+    etiqueta: 'Conservación',
+    texto:
+      'Se conservarán durante no más tiempo del necesario para mantener el fin del tratamiento o mientras existan prescripciones legales que dictaminen su custodia.',
+  },
+  {
+    etiqueta: 'Comunicación',
+    texto: 'No se comunicarán los datos a terceros, salvo obligación legal.',
+  },
+  {
+    etiqueta: 'Derechos',
+    texto:
+      'Acceso, rectificación, supresión, limitación, portabilidad, oposición y reclamación ante la AEPD.',
+  },
+  {
+    etiqueta: 'Info adicional',
+    texto: 'Puede obtener información detallada en el enlace a la',
+    enlace: '/politica-de-privacidad/',
+    enlaceTexto: 'Política de Privacidad',
+  },
+];
+---
+
+<section id="contacto" class="py-22 md:py-32 lg:py-42">
+  <div class="mx-auto w-full max-w-360 px-6 xs:px-8 md:px-12 lg:px-18">
+    <header class="max-w-xl reveal">
+      <SectionLabel num="05" lemma="Belicena · Granada" />
+      <h2
+        class="mt-[1.4rem] font-display font-medium leading-[0.98] tracking-[-0.028em] text-[2.25rem] xs:text-[2.9rem] sm:text-[3.25rem] md:text-[4.25rem] lg:text-[4.75rem] xl:text-[5.25rem]"
+      >
+        Contáctanos
+      </h2>
+    </header>
+
+    <div class="grid gap-[2.2rem] mt-12 xl:grid-cols-3 xl:gap-0 xl:mt-16">
+      {
+        canales.map(canal => (
+          <div class="reveal xl:px-[1.6rem] xl:border-l xl:border-line xl:first:pl-0 xl:first:border-l-0 xl:last:pr-0">
+            <p class="text-[0.72rem] tracking-[0.2em] uppercase text-ink-faint">
+              {canal.nombre}
+            </p>
+            <a
+              class="text-[1.3rem] md:text-[1.6rem] lg:text-[1.7rem] xl:text-[1.35rem] inline-block mt-[0.85rem] wrap-break-word font-display font-medium leading-[1.2] tracking-[-0.01em] text-ink no-underline [transition:color_220ms_var(--ease-out-strong)] hover:text-terracotta-deep"
+              href={canal.href}
+              target={canal.externo ? '_blank' : undefined}
+              rel={canal.externo ? 'noreferrer' : undefined}
+            >
+              {canal.valor}
+            </a>
+            <p class="mt-[0.7rem] text-[0.92rem] leading-[1.6] text-ink-soft">
+              {canal.nota}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="grid gap-16 mt-18 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-x-20 lg:items-start lg:mt-24"
+    >
+      <div>
+        <h3
+          id="cuentanos"
+          class="scroll-mt-28 font-display font-medium leading-[1.05] tracking-tight text-[1.8rem] xs:text-[2rem] md:text-3xl lg:text-4xl xl:text-[2.6rem] reveal"
+        >
+          Cuéntanos
+        </h3>
+
+        <form
+          class="mt-9 flex flex-col gap-[1.6rem] reveal"
+          data-contact-form
+          name="contacto"
+          method="POST"
+          action="/"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          data-astro-reload
+        >
+          <input type="hidden" name="form-name" value="contacto" />
+          <div class="hidden" aria-hidden="true">
+            <label
+              >No rellenes este campo: <input
+                type="text"
+                name="bot-field"
+                autocomplete="off"
+              /></label
+            >
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label
+              class="text-[0.72rem] tracking-[0.16em] text-ink-faint uppercase"
+              for="nombre">Nombre</label
+            >
+            <input
+              class="w-full rounded-none border-b border-b-line-strong bg-transparent p-[0.7rem_0.1rem_0.65rem] text-[1.05rem] text-ink transition-[border-color] duration-240 ease-out-strong focus:border-b-terracotta md:text-[1.12rem]"
+              id="nombre"
+              name="nombre"
+              type="text"
+              autocomplete="name"
+              required
+            />
+          </div>
+
+          <div class="grid gap-[1.6rem] sm:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label
+                class="text-[0.72rem] tracking-[0.16em] text-ink-faint uppercase"
+                for="email">Email</label
+              >
+              <input
+                class="w-full rounded-none border-b border-b-line-strong bg-transparent p-[0.7rem_0.1rem_0.65rem] text-[1.05rem] text-ink transition-[border-color] duration-240 ease-out-strong focus:border-b-terracotta md:text-[1.12rem]"
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label
+                class="text-[0.72rem] tracking-[0.16em] text-ink-faint uppercase"
+                for="telefono">Teléfono</label
+              >
+              <input
+                class="w-full rounded-none border-b border-b-line-strong bg-transparent p-[0.7rem_0.1rem_0.65rem] text-[1.05rem] text-ink transition-[border-color] duration-240 ease-out-strong focus:border-b-terracotta md:text-[1.12rem]"
+                id="telefono"
+                name="telefono"
+                type="tel"
+                autocomplete="tel"
+              />
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label
+              class="text-[0.72rem] tracking-[0.16em] text-ink-faint uppercase"
+              for="mensaje">Mensaje</label
+            >
+            <textarea
+              class="min-h-32 w-full resize-y rounded-none border-b border-b-line-strong bg-transparent p-[0.7rem_0.1rem_0.65rem] text-[1.05rem] leading-[1.6] text-ink transition-[border-color] duration-240 ease-out-strong focus:border-b-terracotta md:text-[1.12rem]"
+              id="mensaje"
+              name="mensaje"
+              rows="5"
+              required></textarea>
+          </div>
+
+          <label
+            class="flex cursor-pointer items-start gap-[0.7rem] text-[0.95rem] leading-normal text-ink-soft"
+          >
+            <input
+              class="mt-[0.15rem] h-[1.1rem] w-[1.1rem] flex-none accent-terracotta-deep"
+              type="checkbox"
+              name="privacidad"
+              value="He leído y acepto la política de privacidad"
+              required
+            />
+            <span
+              >He leído y acepto la <a
+                class="text-terracotta-deep underline-offset-[0.2em]"
+                href="/politica-de-privacidad/">política de privacidad</a
+              ></span
+            >
+          </label>
+
+          <button
+            class="group inline-flex items-center gap-[0.65rem] rounded-control border px-[1.7rem] py-[1.05rem] text-[0.95rem] font-medium leading-none tracking-[0.01em] active:scale-[0.975] disabled:cursor-not-allowed disabled:opacity-60 [transition:transform_160ms_var(--ease-out-strong),background-color_220ms_var(--ease-out-strong),border-color_220ms_var(--ease-out-strong),color_220ms_var(--ease-out-strong)] border-transparent bg-terracotta-deep text-paper hover:bg-terracotta-dark self-start mt-[0.4rem]"
+            type="submit"
+            data-contact-submit
+          >
+            Enviar solicitud <span
+              class="inline-block transition-transform duration-240 ease-out-strong group-hover:translate-x-1"
+              aria-hidden="true">→</span
+            >
+          </button>
+
+          <p
+            class="hidden text-[0.92rem] leading-[1.6] text-terracotta-deep"
+            data-contact-error
+          >
+            No hemos podido enviar tu solicitud. Vuelve a intentarlo en unos
+            minutos o escríbenos a
+            <a
+              class="underline underline-offset-[0.2em]"
+              href="mailto:kardiaformacion@gmail.com"
+              >kardiaformacion@gmail.com</a
+            >.
+          </p>
+        </form>
+      </div>
+
+      <div class="flex flex-col gap-14">
+        <div class="reveal">
+          <h3
+            class="scroll-mt-28 font-display font-medium leading-[1.05] tracking-tight text-[1.8rem] xs:text-[2rem] md:text-3xl lg:text-4xl xl:text-[2.6rem]"
+          >
+            Dónde estamos
+          </h3>
+
+          <address
+            class="mt-6 text-[1.15rem] leading-[1.6] text-ink not-italic md:text-[1.2rem]"
+          >
+            Vial de la Vega, 144<br />
+            18101 Belicena, Granada
+          </address>
+
+          <p
+            class="mt-8 text-[0.72rem] tracking-[0.2em] text-ink-faint uppercase"
+          >
+            Horario:
+          </p>
+          <dl class="mt-[0.7rem]">
+            <div
+              class="flex items-baseline justify-between gap-4 border-b border-line py-[0.7rem] text-[1rem]"
+            >
+              <dt class="text-ink-soft">Lunes - Jueves</dt>
+              <dd class="text-ink tabular-nums">10:15 - 20:30</dd>
+            </div>
+            <div
+              class="flex items-baseline justify-between gap-4 border-b border-line py-[0.7rem] text-[1rem]"
+            >
+              <dt class="text-ink-soft">Viernes</dt>
+              <dd class="text-ink tabular-nums">9:30 - 13:30</dd>
+            </div>
+          </dl>
+
+          <div
+            class="map relative mt-9 aspect-4/3 grid place-items-center p-7 bg-paper-2 rounded-plate overflow-hidden"
+            data-map
+            data-map-src="https://www.google.com/maps?q=Vial%20de%20la%20Vega%20144,%2018101%20Belicena,%20Granada&output=embed"
+            data-map-title="Mapa con la ubicación de Kardia en el Vial de la Vega 144, Belicena"
+          >
+            <p
+              class="max-w-[32ch] text-center text-[0.9rem] leading-[1.6] text-ink-soft"
+              data-map-placeholder
+            >
+              El mapa de Google se carga solo si aceptas las cookies. Puedes
+              cambiar tu decisión en cualquier momento desde la
+              <a
+                class="text-terracotta-deep underline-offset-[0.2em]"
+                href="/politica-de-cookies/">política de cookies</a
+              >.
+            </p>
+          </div>
+        </div>
+
+        <div class="pt-2 reveal">
+          <h4 class="font-display font-semibold text-[1.2rem] text-ink">
+            Protección de datos
+          </h4>
+          <p class="mt-[0.9rem] text-[0.86rem] leading-[1.6] text-ink-faint">
+            PROTECCIÓN DATOS: Reglamento Europeo de Protección de Datos 2016/679
+            y Ley Orgánica 3/2018 de Protección de Datos Personales y garantía
+            de los derechos digitales:
+          </p>
+          <dl class="mt-[1.1rem] flex flex-col gap-[0.7rem]">
+            {
+              proteccion.map(item => (
+                <div class="text-[0.86rem] leading-[1.6] text-ink-soft">
+                  <dt class="inline font-semibold text-ink">
+                    {item.etiqueta}:
+                  </dt>
+                  <dd class="inline">
+                    {item.texto}
+                    {item.enlace && (
+                      <>
+                        {' '}
+                        <a
+                          class="text-terracotta-deep underline-offset-[0.2em]"
+                          href={item.enlace}
+                        >
+                          {item.enlaceTexto}
+                        </a>
+                        .
+                      </>
+                    )}
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div
+  id="solicitud-enviada"
+  class="confirm fixed inset-0 z-200 hidden place-items-center p-5"
+>
+  <a
+    class="confirm-backdrop absolute inset-0 bg-roast/62"
+    href="#contacto"
+    aria-label="Cerrar"></a>
+  <div
+    class="[box-shadow:0_40px_80px_-40px_oklch(0.28_0.03_52/0.6)] confirm-card relative w-[min(32rem,100%)] pt-8 pb-7 px-[1.9rem] bg-paper-3 rounded-control sm:pt-10 sm:pb-[2.2rem] sm:px-[2.4rem]"
+  >
+    <p class="text-[0.72rem] tracking-[0.2em] text-terracotta-deep uppercase">
+      Solicitud enviada
+    </p>
+    <h3
+      class="mt-[0.9rem] font-display text-[1.9rem] leading-[1.02] font-medium tracking-tight xs:text-[2.1rem] sm:text-4xl xl:text-[2.6rem]"
+    >
+      Gracias por escribirnos
+    </h3>
+    <p class="mt-[0.9rem] text-base leading-[1.65] text-ink-soft">
+      Hemos recibido tu solicitud y te responderemos lo antes posible. Si lo
+      prefieres, también puedes escribirnos a
+      <a
+        class="text-terracotta-deep underline-offset-[0.2em]"
+        href="mailto:kardiaformacion@gmail.com">kardiaformacion@gmail.com</a
+      >.
+    </p>
+    <div class="mt-7 flex flex-wrap gap-[0.7rem]">
+      <a
+        class="group inline-flex items-center gap-[0.65rem] rounded-control border px-[1.7rem] py-[1.05rem] text-[0.95rem] font-medium leading-none tracking-[0.01em] active:scale-[0.975] [transition:transform_160ms_var(--ease-out-strong),background-color_220ms_var(--ease-out-strong),border-color_220ms_var(--ease-out-strong),color_220ms_var(--ease-out-strong)] border-ink/34 text-ink hover:border-ink hover:bg-ink/6"
+        href="#contacto">Cerrar</a
+      >
+      <a
+        class="group inline-flex items-center gap-[0.65rem] rounded-control border px-[1.7rem] py-[1.05rem] text-[0.95rem] font-medium leading-none tracking-[0.01em] active:scale-[0.975] [transition:transform_160ms_var(--ease-out-strong),background-color_220ms_var(--ease-out-strong),border-color_220ms_var(--ease-out-strong),color_220ms_var(--ease-out-strong)] border-transparent bg-terracotta-deep text-paper hover:bg-terracotta-dark"
+        href="#cuentanos">Enviar otra solicitud</a
+      >
+    </div>
+  </div>
+</div>
+
+<script>
+  import '@/scripts/contact-form';
+</script>
+
+<style>
+  .map :global(.map-frame) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Modal de confirmación, que se abre con el fragmento de la URL del formulario. */
+  .confirm:target {
+    display: grid;
+  }
+
+  @keyframes confirm-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes backdrop-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .confirm:target .confirm-backdrop {
+      animation: backdrop-in 300ms var(--ease-out-strong) both;
+    }
+
+    .confirm:target .confirm-card {
+      animation: confirm-in 420ms var(--ease-out-strong) 70ms both;
+    }
+  }
+</style>
