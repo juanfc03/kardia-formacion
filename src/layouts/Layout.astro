@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 import '@/styles/global.css';
 ---
 
@@ -16,6 +17,11 @@ import '@/styles/global.css';
     <meta name="apple-mobile-web-app-title" content="Kardia" />
     <link rel="manifest" href="/site.webmanifest" />
     <title>Astro Basics</title>
+
+    {/* Fraunces is the hero display face: preload it. Inter is body/label text and
+        is intentionally not preloaded to avoid competing for critical bandwidth. */}
+    <Font cssVariable="--font-fraunces" preload />
+    <Font cssVariable="--font-inter" />
   </head>
   <body>
     <slot />

@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+/*
+ * Astro's Fonts API exposes each self-hosted family as a CSS variable
+ * (see `fonts` in astro.config.mjs and the <Font /> tags in Layout.astro).
+ * `@theme inline` maps those runtime variables onto Tailwind tokens, so the
+ * values stay resolved at runtime instead of being copied at build time.
+ */
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-fraunces);
+}
+
+/*
+ * Fraunces is a variable font: keep its expressive axes available on display
+ * type. SOFT softens the terminals and WONK adds the organic, slightly
+ * irregular curve in italic. font-optical-sizing and font-weight keep working
+ * because those axes are not overridden here.
+ */
+:root {
+  --display-variation-settings: "SOFT" 30, "WONK" 1;
+}
+
+@layer base {
+  .font-display {
+    font-variation-settings: var(--display-variation-settings);
+  }
+}

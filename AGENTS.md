@@ -18,10 +18,16 @@ Astro 7 static site. Notes below are repo-specific; don't guess around them.
 - `trailingSlash: 'always'` → all internal links and generated routes must end in `/`.
 - `build.inlineStylesheets: 'always'` → all CSS is inlined into every page (no shared CSS cache).
 - Tailwind v4 via the `@tailwindcss/vite` Vite plugin (not `@astrojs/tailwind`). Entry: `src/styles/global.css`, imported once in `src/layouts/Layout.astro`.
-- Tailwind v4 is CSS-first: tokens go in an `@theme` block in `src/styles/global.css` (today just `@import "tailwindcss";`). There is no `tailwind.config.js` and none should be created.
+- Tailwind v4 is CSS-first: tokens go in an `@theme` block in `src/styles/global.css`. There is no `tailwind.config.js` and none should be created.
 - Import alias `@/*` → `src/*` defined in `tsconfig.json` `paths` (native Astro aliasing). Use it instead of relative paths; do not add a Vite `resolve.alias`.
 - TS preset `astro/tsconfigs/strict` enables `verbatimModuleSyntax` → use `import type` for type-only imports.
 - Dependency build scripts are allowlisted in `pnpm-workspace.yaml` (`allowBuilds`) and `package.json` (`allowScripts`). Add entries there if a new native dep's install script is skipped.
+
+## Fonts
+- Self-hosted via Astro's Fonts API (`fonts` in `astro.config.mjs`), Fontsource provider. No runtime Google Fonts request; `.woff2` files are emitted under `dist/_astro/fonts/`.
+- Families: `Fraunces` (display, variable `wght` + real italic, SOFT/WONK axes) → `--font-fraunces`; `Inter` (body/labels, variable) → `--font-inter`.
+- To add a family: add an entry to `fonts` in `astro.config.mjs`, render `<Font cssVariable="--font-x" />` in `src/layouts/Layout.astro`, and (optionally) map it in the `@theme inline` block of `src/styles/global.css`. Use `<Font ... preload />` only for fonts visible above the fold; never add `@fontsource-variable/*` imports to components — the provider is the single loading mechanism.
+- Tailwind utilities: `font-sans` → Inter, `font-display` → Fraunces. `.font-display` also applies the Fraunces axes (`font-variation-settings`) from the base layer.
 
 ## Repo state / gotchas
 - No longer the starter template: `src/pages/index.astro` only renders `<Layout />`. Brand assets live in `src/assets/` (`logo.png` + `kardia-*.jpeg` photos); favicons and `site.webmanifest` in `public/`. No content collections or UI framework yet.
