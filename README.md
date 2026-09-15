@@ -1,46 +1,48 @@
-# Astro Starter Kit: Basics
+# Kardia · Centro de Formación
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Web del centro de formación Kardia, en Belicena (Granada). Es un sitio estático
+hecho con Astro y Tailwind CSS: no hay servidor ni base de datos.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Los textos de cada sección están escritos dentro de su componente en
+`src/components/`; no hay gestor de contenidos.
 
-## 🚀 Project Structure
+## Requisitos
 
-Inside of your Astro project, you'll see the following folders and files:
+- Node 22.12 o superior
+- pnpm (el proyecto usa `pnpm-lock.yaml`, no npm ni yarn)
+
+## Comandos
+
+| Comando | Qué hace |
+| --- | --- |
+| `pnpm install` | Instala las dependencias |
+| `pnpm dev` | Servidor de desarrollo en `http://localhost:4321` |
+| `pnpm build` | Comprueba los tipos y genera el sitio en `dist/` |
+| `pnpm preview` | Sirve `dist/` para ver el resultado real del build |
+| `pnpm check` | Solo comprueba los tipos |
+
+`dev` sirve el CSS tal cual está escrito y `preview` sirve el build ya minificado.
+Si tocas CSS o animaciones, míralo también en `preview`.
+
+## Estructura
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+├── assets/       fotos y logo
+├── components/   las secciones de la página (Hero, Servicios, Contacto…)
+├── layouts/      plantilla HTML común a todas las páginas
+├── pages/        una página por ruta (inicio y las tres legales) y la tarjeta Open Graph
+├── scripts/      el poco JavaScript de cliente (cookies, tira de imágenes, formulario)
+└── styles/       tokens de diseño y estilos globales
+public/           favicons, manifiesto y robots.txt
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Despliegue
 
-## 🧞 Commands
+Se publica en Netlify con el comando `pnpm build` y el directorio `dist/`.
+El formulario de contacto usa Netlify Forms, así que la detección de formularios
+tiene que estar activada en el panel del sitio.
 
-All commands are run from the root of the project, from a terminal:
+## Licencia
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Todos los derechos reservados. Este código es público para consulta y aprendizaje, pero no tiene licencia de uso, modificación o distribución.
