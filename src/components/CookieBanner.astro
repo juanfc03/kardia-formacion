@@ -1,0 +1,54 @@
+---
+---
+
+<aside
+  class="pointer-events-none invisible fixed inset-x-5 bottom-5 z-60 flex translate-y-5 justify-end opacity-0 [transition:opacity_300ms_var(--ease-out-strong),transform_420ms_var(--ease-out-strong),visibility_0s_linear_420ms] data-[visible=true]:visible data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100 data-[visible=true]:[transition:opacity_420ms_var(--ease-out-strong),transform_520ms_var(--ease-out-strong),visibility_0s] motion-reduce:transform-none motion-reduce:[transition:opacity_200ms_linear,visibility_0s]"
+  data-consent-root
+  aria-label="Aviso de cookies"
+>
+  <div
+    class="pointer-events-auto w-full max-w-104 rounded-control bg-paper-3 px-[1.6rem] pt-6 pb-[1.35rem] [box-shadow:0_30px_60px_-32px_oklch(0.28_0.03_52/0.55)] sm:px-[1.8rem] sm:pt-[1.7rem] sm:pb-6"
+  >
+    <p
+      class="relative pt-[1.1rem] font-display text-[1.3rem] leading-[1.15] font-medium tracking-[-0.02em] consent-title"
+    >
+      Un momento sobre las cookies
+    </p>
+    <p class="mt-[0.7rem] text-[0.92rem] leading-[1.6] text-ink-soft">
+      Guardamos tu elección en este dispositivo para no preguntarte en cada visita. Si aceptas, cargamos además el
+      mapa de Google para mostrarte dónde estamos.
+    </p>
+    <div class="mt-[1.3rem] flex flex-wrap gap-[0.6rem]">
+      <button
+        class="group inline-flex items-center gap-[0.65rem] rounded-control border px-[1.35rem] py-[0.82rem] text-[0.86rem] font-medium leading-none tracking-[0.01em] active:scale-[0.975] [transition:transform_160ms_var(--ease-out-strong),background-color_220ms_var(--ease-out-strong),border-color_220ms_var(--ease-out-strong),color_220ms_var(--ease-out-strong)] border-transparent bg-terracotta-deep text-paper hover:bg-terracotta-dark"
+        type="button"
+        data-consent-action="accept">Aceptar</button
+      >
+      <button
+        class="group inline-flex items-center gap-[0.65rem] rounded-control border px-[1.35rem] py-[0.82rem] text-[0.86rem] font-medium leading-none tracking-[0.01em] active:scale-[0.975] [transition:transform_160ms_var(--ease-out-strong),background-color_220ms_var(--ease-out-strong),border-color_220ms_var(--ease-out-strong),color_220ms_var(--ease-out-strong)] border-ink/34 text-ink hover:border-ink hover:bg-ink/6"
+        type="button"
+        data-consent-action="reject">Rechazar</button
+      >
+    </div>
+    <a
+      class="mt-4 inline-block text-[0.82rem] text-terracotta-deep underline decoration-terracotta-deep/45 decoration-1 underline-offset-[0.2em] transition-[text-decoration-color] duration-200 ease-out-strong hover:decoration-current"
+      href="/politica-de-cookies/">Política de cookies</a
+    >
+  </div>
+</aside>
+
+<script>
+  import '@/scripts/cookies';
+</script>
+
+<style>
+  .consent-title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.25rem;
+    height: 2px;
+    background: var(--color-terracotta);
+  }
+</style>

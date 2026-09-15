@@ -1,0 +1,16 @@
+---
+interface Props {
+  num: string;
+  lemma: string;
+}
+
+const { num, lemma } = Astro.props;
+---
+
+<div class="flex items-baseline gap-[0.9rem]">
+  <span class="font-display text-[1.35rem] leading-none font-semibold tracking-[-0.02em] text-terracotta-deep tabular-nums"
+    >{num}</span
+  >
+  <span class="block h-px w-11 flex-none -translate-y-[0.28em] bg-current opacity-40" aria-hidden="true"></span>
+  <span class="min-w-0 text-[0.72rem] font-medium tracking-[0.22em] text-ink-faint uppercase">{lemma}</span>
+</div>

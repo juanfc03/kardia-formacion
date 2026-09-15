@@ -1,0 +1,122 @@
+---
+import { Picture } from 'astro:assets';
+import SectionLabel from '@/components/SectionLabel.astro';
+
+import fachada from '@/assets/kardia-fachada.jpeg';
+import acogida from '@/assets/kardia-entrada-frente-1.jpeg';
+import salaPrincipalUno from '@/assets/kardia-sala-principal-1.jpeg';
+import entrada from '@/assets/kardia-entrada-frente-2.jpeg';
+import salaPrincipalDos from '@/assets/kardia-sala-principal-2.jpeg';
+import salaTalleres from '@/assets/kardia-sala-secundaria.jpeg';
+
+const plates = [
+  {
+    src: fachada,
+    name: 'La fachada',
+    lemma: 'Vial de la Vega, 144',
+    ratio: '4 / 3',
+    alt: 'Fachada del centro de formación Kardia vista desde la calle, en el Vial de la Vega 144',
+  },
+  {
+    src: acogida,
+    name: 'Zona de acogida',
+    lemma: 'El primer encuentro',
+    ratio: '4 / 3',
+    alt: 'Zona de acogida y recepción de Kardia, el primer espacio al entrar',
+  },
+  {
+    src: salaPrincipalUno,
+    name: 'Aula principal',
+    lemma: 'Aprender con calma',
+    ratio: '3 / 4',
+    alt: 'Aula principal de Kardia, en vertical, con mesas de trabajo y luz natural',
+  },
+  {
+    src: entrada,
+    name: 'La entrada',
+    lemma: 'Bienvenida',
+    ratio: '4 / 3',
+    alt: 'Entrada principal del centro de formación Kardia',
+  },
+  {
+    src: salaPrincipalDos,
+    name: 'Aula principal',
+    lemma: 'Luz y espacio',
+    ratio: '4 / 3',
+    alt: 'Vista amplia del aula principal de Kardia, con luz y espacio para trabajar',
+  },
+  {
+    src: salaTalleres,
+    name: 'Sala de talleres',
+    lemma: 'Crear y compartir',
+    ratio: '3 / 4',
+    alt: 'Sala de talleres de Kardia, en vertical, preparada para crear y compartir',
+  },
+];
+---
+
+<section id="instalaciones" class="py-[5.5rem] md:py-32 lg:py-[10.5rem]">
+  <div class="mx-auto w-full max-w-[90rem] px-6 xs:px-8 md:px-12 lg:px-[4.5rem]">
+    <header class="reveal max-w-[46rem]">
+      <SectionLabel num="02" lemma="Luz · calma · espacio" />
+      <h2
+        class="mt-[1.4rem] font-display text-[2.25rem] leading-[0.98] font-medium tracking-[-0.028em] xs:text-[2.9rem] sm:text-[3.25rem] md:text-[4.25rem] lg:text-[4.75rem] xl:text-[5.25rem]"
+      >
+        Nuestras Instalaciones
+      </h2>
+      <p
+        class="mt-6 max-w-[52ch] text-[1.075rem] leading-[1.7] text-ink-soft xs:text-lg md:text-[1.25rem] lg:text-[1.35rem] xl:text-[1.45rem]"
+      >
+        Espacios luminosos y cuidados, donde cada detalle está pensado para aprender con calma, compartir y sentirse
+        como en casa. Estas son algunas de nuestras aulas y zonas comunes.
+      </p>
+    </header>
+  </div>
+
+  <div
+    class="filmstrip-viewport mt-14 [-webkit-mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)] md:mt-20"
+    data-filmstrip
+  >
+    <div class="filmstrip-track">
+      {
+        [0, 1, 2].map(copy => (
+          <div class="flex gap-5 pr-5 md:gap-7 md:pr-7" aria-hidden={copy > 0 ? 'true' : undefined}>
+            {plates.map(plate => (
+              <figure class="group flex flex-none flex-col gap-[0.85rem]">
+                <div
+                  class="aspect-[var(--ratio,4/3)] h-60 overflow-hidden rounded-plate border border-line-strong bg-paper-2 sm:h-80 lg:h-[26rem]"
+                  style={`--ratio: ${plate.ratio}`}
+                >
+                  <Picture
+                    src={plate.src}
+                    formats={['avif', 'webp']}
+                    widths={[380, 560, 800]}
+                    sizes="(min-width: 768px) 32rem, 80vw"
+                    quality={70}
+                    alt={plate.alt}
+                    loading="lazy"
+                    fetchpriority="low"
+                    decoding="async"
+                    class="h-full w-full object-cover transition-transform duration-700 ease-out-strong group-hover:scale-[1.045]"
+                  />
+                </div>
+                <figcaption class="flex items-baseline gap-2 text-[0.9rem] leading-[1.4] whitespace-nowrap">
+                  <span
+                    class="font-display text-[1.05rem] font-semibold text-ink transition-[color] duration-[220ms] ease-out-strong group-hover:text-terracotta-deep"
+                    >{plate.name}</span
+                  >
+                  <span class="text-terracotta" aria-hidden="true">—</span>
+                  <span class="text-ink-faint">{plate.lemma}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import '@/scripts/filmstrip';
+</script>

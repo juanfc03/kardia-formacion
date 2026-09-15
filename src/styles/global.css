@@ -1,28 +1,447 @@
 @import "tailwindcss";
 
 /*
- * Astro's Fonts API exposes each self-hosted family as a CSS variable
- * (see `fonts` in astro.config.mjs and the <Font /> tags in Layout.astro).
- * `@theme inline` maps those runtime variables onto Tailwind tokens, so the
- * values stay resolved at runtime instead of being copied at build time.
+ * Tokens de diseño de Kardia: papel editorial cálido, tinta café, terracota y
+ * arcilla. En OKLCH para que la rampa sea perceptualmente uniforme. Los tamaños
+ * de texto se escalan con los breakpoints xs/sm/md/lg/xl de Tailwind en el propio
+ * marcado.
+ */
+@theme {
+  --breakpoint-xs: 26rem;
+
+  --color-paper: oklch(0.965 0.013 84);
+  --color-paper-2: oklch(0.938 0.017 80);
+  --color-paper-3: oklch(0.985 0.008 88);
+  --color-ink: oklch(0.28 0.03 52);
+  --color-ink-soft: oklch(0.45 0.028 52);
+  --color-ink-faint: oklch(0.53 0.03 55);
+  --color-terracotta: oklch(0.56 0.135 42);
+  --color-terracotta-deep: oklch(0.47 0.12 40);
+  --color-terracotta-dark: oklch(0.42 0.115 40);
+  --color-clay: oklch(0.76 0.055 62);
+  --color-clay-deep: oklch(0.66 0.07 58);
+  --color-roast: oklch(0.3 0.032 48);
+  --color-line: oklch(0.87 0.018 75);
+  --color-line-strong: oklch(0.79 0.022 72);
+
+  --radius-plate: 2px;
+  --radius-control: 4px;
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/*
+ * La API de fuentes de Astro expone cada familia autoalojada como una variable
+ * CSS (ver `fonts` en astro.config.mjs y las etiquetas <Font /> de Layout.astro).
+ * `@theme inline` mapea esas variables de tiempo de ejecución a tokens de
+ * Tailwind, así que los valores se resuelven en runtime en vez de copiarse
+ * durante el build.
+ *
+ * Los ejes de Fraunces viajan en la propia utilidad `font-display`: SOFT suaviza
+ * los remates y WONK añade la curva orgánica y ligeramente irregular, de modo que
+ * la tipografía display conserva su voz sin necesidad de una clase a medida.
  */
 @theme inline {
   --font-sans: var(--font-inter);
   --font-display: var(--font-fraunces);
-}
-
-/*
- * Fraunces is a variable font: keep its expressive axes available on display
- * type. SOFT softens the terminals and WONK adds the organic, slightly
- * irregular curve in italic. font-optical-sizing and font-weight keep working
- * because those axes are not overridden here.
- */
-:root {
-  --display-variation-settings: "SOFT" 30, "WONK" 1;
+  --font-display--font-variation-settings: "SOFT" 30, "WONK" 1;
 }
 
 @layer base {
-  .font-display {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-terracotta) 26%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+  }
+
+  /*
+   * Los enlaces ya reciben el cursor pointer del navegador; los botones, los
+   * checkboxes y las etiquetas no. Todo lo que el visitante puede pulsar debería
+   * parecer pulsable.
+   */
+  :where(
+    button,
+    summary,
+    label,
+    [role="button"],
+    input[type="checkbox"],
+    input[type="radio"],
+    ::file-selector-button
+  ) {
+    cursor: pointer;
+  }
+
+  :where(button, [role="button"]):disabled {
+    cursor: default;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Texto editorial de lectura larga: medida y ritmo cómodos. */
+  .prose-editorial {
+    @apply text-[1.0625rem] sm:text-[1.125rem] md:text-[1.1875rem];
+    max-width: 68ch;
+    color: var(--color-ink-soft);
+    line-height: 1.75;
+  }
+
+  .prose-editorial > * + * {
+    margin-top: 1.25em;
+  }
+
+  .prose-editorial h2 {
+    font-family: var(--font-display);
     font-variation-settings: var(--display-variation-settings);
+    font-weight: 500;
+    color: var(--color-ink);
+    @apply text-[1.6rem] sm:text-[1.9rem];
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-top: 2.75em;
+  }
+
+  .prose-editorial h2:first-child {
+    margin-top: 0;
+  }
+
+  .prose-editorial h3 {
+    font-family: var(--font-display);
+    font-variation-settings: var(--display-variation-settings);
+    font-weight: 600;
+    color: var(--color-ink);
+    @apply text-[1.1rem] sm:text-[1.2rem];
+    line-height: 1.3;
+    margin-top: 2em;
+  }
+
+  .prose-editorial .data-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .prose-editorial .data-block p {
+    margin: 0;
+  }
+
+  .prose-editorial strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .prose-editorial a {
+    color: var(--color-terracotta-deep);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    text-decoration-color: color-mix(in oklab, var(--color-terracotta-deep) 45%, transparent);
+    transition: text-decoration-color 200ms var(--ease-out-strong);
+  }
+
+  .prose-editorial a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .prose-editorial ul {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .prose-editorial li {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .prose-editorial li + li {
+    margin-top: 0.55em;
+  }
+
+  .prose-editorial li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.55rem;
+    height: 1px;
+    background: var(--color-terracotta);
+  }
+
+  /*
+   * El estado del consentimiento vive en <html data-consent>, así que cualquier
+   * etiqueta puede seguirlo desde CSS sin que el script parchee nodos de texto.
+   */
+  [data-consent-label]::after {
+    content: "sin decidir";
+  }
+
+  html[data-consent="accepted"] [data-consent-label]::after {
+    content: "aceptadas";
+  }
+
+  html[data-consent="rejected"] [data-consent-label]::after {
+    content: "rechazadas";
+  }
+}
+
+/*
+ * Primitivas de movimiento. Todo degrada a contenido estático: `.reveal` y
+ * `.parallax` están visibles por defecto y solo animan cuando el navegador
+ * soporta animaciones por scroll y el usuario permite movimiento.
+ */
+@keyframes k-reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2.25rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes k-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes k-parallax {
+  from {
+    transform: translate3d(0, 3%, 0) scale(1.08);
+  }
+  to {
+    transform: translate3d(0, -3%, 0) scale(1.08);
+  }
+}
+
+@keyframes k-draw-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Una copia por ciclo: el track lleva tres copias, así que un tercio de su ancho. */
+@keyframes k-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-100% / 3), 0, 0);
+  }
+}
+
+@keyframes k-crossfade {
+  0% {
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  31% {
+    opacity: 1;
+  }
+  35% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes k-kenburns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.14);
+  }
+}
+
+.reveal {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: k-reveal-up both linear;
+      animation-timeline: view();
+      animation-range: entry 8% cover 26%;
+    }
+
+    .reveal-slow {
+      animation-range: entry 4% cover 40%;
+    }
+  }
+}
+
+/*
+ * Marco de parallax. `overflow: clip` (y no `hidden`) es deliberado: `hidden`
+ * convertiría el marco en un contenedor de scroll y la línea de tiempo `view()`
+ * se resolvería contra él en lugar de contra la página, congelando el parallax.
+ */
+.parallax-frame {
+  overflow: hidden;
+}
+
+@supports (overflow: clip) {
+  .parallax-frame {
+    overflow: clip;
+  }
+}
+
+.parallax-frame img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .parallax-frame img {
+      animation: k-parallax both linear;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+  }
+}
+
+/* Pila de imágenes que rota sola: tres placas fundiéndose en un mismo marco. */
+.rotate-stack {
+  position: relative;
+  isolation: isolate;
+}
+
+/*
+ * La primera placa es la base de la pila: queda opaca y NO anima, así que el
+ * primer pintado del hero ya es una imagen real. Eso importa para el LCP móvil
+ * — Chrome rasteriza tarde una capa que anima, y animar esta imagen costaba
+ * ~900 ms de LCP (medido: 1916 ms animada frente a 1020 ms estática). Las placas
+ * 2 y 3 se funden *por encima* de ella, así que la rotación sigue leyéndose como
+ * un crossfade: 1 sola → 2 encima → 3 encima → 3 se desvanece y vuelve la 1.
+ */
+.rotate-stack > * {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.rotate-stack > :first-child {
+  opacity: 1;
+}
+
+.rotate-stack > :nth-child(2),
+.rotate-stack > :nth-child(3) {
+  animation: k-crossfade 24s var(--ease-in-out-strong) infinite;
+}
+
+.rotate-stack > :nth-child(2) {
+  animation-delay: 7s;
+}
+
+.rotate-stack > :nth-child(3) {
+  animation-delay: 15s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotate-stack > * {
+    animation: none;
+  }
+
+  .rotate-stack > :first-child {
+    opacity: 1;
+  }
+}
+
+/*
+ * Tira de imágenes: una deriva horizontal sin fin que además se puede arrastrar.
+ * El track lleva tres copias idénticas de las placas y recorre exactamente una
+ * copia por ciclo (ver k-marquee), así que el bucle no tiene costura. Tres copias
+ * y no dos porque con dos solo queda cubierto mientras el viewport es más
+ * estrecho que una copia. Al arrastrar tampoco hay final: filmstrip.ts envuelve
+ * la posición de scroll dentro de la copia central, lo que resulta invisible
+ * precisamente porque las copias son iguales.
+ */
+.filmstrip-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.filmstrip-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.filmstrip-track {
+  display: flex;
+  width: max-content;
+  animation: k-marquee 72s linear infinite;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .filmstrip-viewport:hover .filmstrip-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Sin movimiento no hay deriva, así que devolvemos las placas como tira normal. */
+@media (prefers-reduced-motion: reduce) {
+  .filmstrip-viewport {
+    overflow-x: auto;
+  }
+
+  .filmstrip-track {
+    animation: none;
+  }
+
+  .filmstrip-track > [aria-hidden="true"] {
+    display: none;
   }
 }

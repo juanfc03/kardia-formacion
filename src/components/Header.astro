@@ -1,0 +1,231 @@
+---
+import { Image } from 'astro:assets';
+import logo from '@/assets/logo.png';
+
+const navItems = [
+  { label: 'Inicio', href: '/#inicio', index: '01' },
+  { label: 'Servicios', href: '/#servicios', index: '02' },
+  { label: 'Contacto', href: '/#contacto', index: '03' },
+];
+---
+
+<div id="menu-kardia" class="menu-panel fixed inset-0 z-[100] bg-paper">
+  <div class="mx-auto w-full max-w-[90rem] px-6 xs:px-8 md:px-12 lg:px-[4.5rem] relative h-full flex flex-col pt-[1.35rem] pb-[2.25rem] overflow-y-auto">
+    <div class="menu-top flex items-center justify-between">
+      <span class="font-display font-semibold text-[1.3rem] tracking-[0.14em] uppercase">Kardia</span>
+      <a class="text-[0.8rem] tracking-[0.12em] uppercase text-ink-soft no-underline px-[0.2rem] py-2" href="/#inicio">Cerrar</a>
+    </div>
+
+    <nav class="flex flex-col gap-[0.35rem] my-auto py-10">
+      {
+        navItems.map(item => (
+          <a class="menu-link flex items-baseline gap-4 no-underline text-ink border-b border-line py-[1.1rem]" href={item.href}>
+            <span class="font-display font-semibold text-[0.95rem] tabular-nums text-terracotta-deep">{item.index}</span>
+            <span class="font-display font-medium text-[2.4rem] leading-none tracking-[-0.025em] xs:text-[2.9rem]">{item.label}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="menu-foot flex flex-col gap-[0.55rem] text-[1.02rem]">
+      <a class="text-ink-soft no-underline w-fit transition-colors duration-200 ease-out-strong hover:text-terracotta-deep" href="https://www.instagram.com/kardia.formacion/" target="_blank" rel="noreferrer">
+        @kardia.formacion
+      </a>
+      <a class="text-ink-soft no-underline w-fit transition-colors duration-200 ease-out-strong hover:text-terracotta-deep" href="mailto:kardiaformacion@gmail.com">kardiaformacion@gmail.com</a>
+      <a class="text-ink-soft no-underline w-fit transition-colors duration-200 ease-out-strong hover:text-terracotta-deep" href="tel:+34614877104">614 877 104</a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto w-full max-w-[90rem] px-6 xs:px-8 md:px-12 lg:px-[4.5rem] flex items-center justify-between gap-4 h-[4.25rem] md:gap-6 md:h-[4.9rem]">
+    <a class="brand group inline-flex items-center gap-[0.65rem] no-underline text-inherit" href="/#inicio">
+      <Image class="w-[2.35rem] h-[2.35rem] object-contain transition-[rotate,scale] duration-[420ms] ease-out-strong group-hover:rotate-[-8deg] group-hover:scale-[1.04] md:w-[2.6rem] md:h-[2.6rem]" src={logo} alt="Kardia" width={76} height={76} />
+      <span class="flex flex-col gap-[0.18rem]">
+        <span class="font-display font-semibold text-[1.3rem] leading-none tracking-[0.14em] uppercase md:text-[1.45rem]">Kardia</span>
+        <span class="text-[0.66rem] tracking-[0.26em] whitespace-nowrap uppercase text-ink-faint leading-none md:text-[0.72rem]">Centro de formación</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-[1.85rem] text-[0.98rem] lg:inline-flex lg:gap-[2.35rem] lg:text-[1.05rem]">
+      {navItems.map(item => <a class="nav-link relative py-[0.35rem] text-ink-soft no-underline transition-colors duration-200 ease-out-strong hover:text-ink" href={item.href}>{item.label}</a>)}
+      <span class="w-px h-[1.1rem] bg-line-strong" aria-hidden="true"></span>
+      <a class="nav-link relative py-[0.35rem] text-ink-soft no-underline transition-colors duration-200 ease-out-strong hover:text-ink" href="https://www.instagram.com/kardia.formacion/" target="_blank" rel="noreferrer">
+        @kardia.formacion
+      </a>
+    </nav>
+
+    <a class="inline-flex items-center gap-[0.6rem] px-[0.95rem] py-[0.62rem] border border-ink/22 rounded-control text-[0.76rem] tracking-[0.12em] whitespace-nowrap uppercase text-ink no-underline md:text-[0.8rem] active:scale-[0.97] hover:border-ink hover:bg-ink/6 lg:hidden [transition:border-color_200ms_var(--ease-out-strong),background-color_200ms_var(--ease-out-strong),scale_160ms_var(--ease-out-strong)]" href="/#menu-kardia" aria-label="Abrir menú">
+      <span class="hidden sm:inline">Abrir menú</span>
+      <span class="inline-flex flex-col justify-center gap-[3px]" aria-hidden="true"><i class="block w-[15px] h-px bg-current"></i><i class="block w-[15px] h-px bg-current"></i></span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: color-mix(in oklab, var(--color-paper) 86%, transparent);
+    backdrop-filter: blur(14px) saturate(1.05);
+    -webkit-backdrop-filter: blur(14px) saturate(1.05);
+    opacity: 0.5;
+  }
+
+  .site-header::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--color-line-strong);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @keyframes header-solid {
+    from {
+      opacity: 0.5;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes header-rule {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .site-header::before {
+        animation: header-solid linear both;
+        animation-timeline: scroll();
+        animation-range: 0 11rem;
+      }
+
+      .site-header::after {
+        animation: header-rule linear both;
+        animation-timeline: scroll();
+        animation-range: 1.5rem 10rem;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header::after {
+      transform: scaleX(1);
+      opacity: 0.7;
+    }
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 320ms var(--ease-out-strong);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Menú móvil a pantalla completa, gobernado solo por el fragmento de la URL. */
+  :global(html:has(.menu-panel:target)) {
+    overflow: hidden;
+  }
+
+  .menu-panel {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 300ms var(--ease-out-strong),
+      visibility 0s linear 300ms;
+  }
+
+  .menu-panel:target {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition:
+      opacity 360ms var(--ease-out-strong),
+      visibility 0s;
+  }
+
+  .menu-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      120% 80% at 85% 0%,
+      color-mix(in oklab, var(--color-clay) 34%, transparent),
+      transparent 62%
+    );
+    opacity: 0;
+    transition: opacity 600ms var(--ease-out-strong) 80ms;
+  }
+
+  .menu-panel:target::before {
+    opacity: 1;
+  }
+
+  .menu-top,
+  .menu-link,
+  .menu-foot {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 420ms var(--ease-out-strong),
+      transform 420ms var(--ease-out-strong);
+  }
+
+  .menu-panel:target .menu-top,
+  .menu-panel:target .menu-link,
+  .menu-panel:target .menu-foot {
+    opacity: 1;
+    transform: none;
+  }
+
+  .menu-panel:target .menu-link:nth-child(1) {
+    transition-delay: 70ms;
+  }
+
+  .menu-panel:target .menu-link:nth-child(2) {
+    transition-delay: 130ms;
+  }
+
+  .menu-panel:target .menu-link:nth-child(3) {
+    transition-delay: 190ms;
+  }
+
+  .menu-panel:target .menu-foot {
+    transition-delay: 250ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu-panel,
+    .menu-panel::before,
+    .menu-top,
+    .menu-link,
+    .menu-foot {
+      transition-duration: 1ms;
+      transition-delay: 0ms;
+      transform: none;
+    }
+  }
+</style>

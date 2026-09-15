@@ -1,8 +1,20 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Hero from '@/components/Hero.astro';
+import Sobre from '@/components/Sobre.astro';
+import Instalaciones from '@/components/Instalaciones.astro';
+import Equipo from '@/components/Equipo.astro';
+import Servicios from '@/components/Servicios.astro';
+import Contacto from '@/components/Contacto.astro';
 ---
 
-<Layout />
+<Layout
+  description="Centro de formación en Belicena, Granada. Refuerzo educativo, talleres, formación TIC y apoyo psicológico: donde la educación nace de dentro y llega muy lejos."
+>
+  <Hero />
+  <Sobre />
+  <Instalaciones />
+  <Equipo />
+  <Servicios />
+  <Contacto />
+</Layout>

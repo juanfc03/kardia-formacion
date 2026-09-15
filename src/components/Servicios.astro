@@ -1,0 +1,104 @@
+---
+import SectionLabel from '@/components/SectionLabel.astro';
+
+const tarifas = [
+  { horas: '2h/semana', precio: '65€', nota: '(8,1€/hora)' },
+  { horas: '3h/semana', precio: '75€', nota: '(6,25€/hora)' },
+  { horas: '4h/semana', precio: '85€', nota: '(5,3€/hora)' },
+];
+
+const servicios = [
+  {
+    num: '02',
+    titulo: 'Talleres',
+    textos: [
+      'Los sábados por la mañana organizamos talleres creativos y dinámicos en un ambiente cercano, donde aprender y crear van de la mano y la experiencia se disfruta al máximo. Cada sesión es diferente y el precio varía según el taller, por lo que recomendamos contactarnos por email o consultar nuestro perfil de Instagram para conocer toda la información.',
+    ],
+  },
+  {
+    num: '03',
+    titulo: 'Formación TIC',
+    textos: [
+      'Ofrecemos cursos de formación TIC en horario de mañanas, pensados para aprender de forma práctica y accesible, en un ambiente cercano y participativo. Las sesiones se desarrollan con contenidos actualizados y orientados a la experiencia, y son completamente gratuitas. Para conocer fechas, horarios y novedades, puedes contactarnos por email o consultar nuestro perfil de Instagram.',
+    ],
+  },
+  {
+    num: '04',
+    titulo: 'Psicología',
+    textos: ['Espacio de orientación y apoyo psicológico para potenciar tu bienestar emocional.'],
+  },
+  {
+    num: '05',
+    titulo: 'Centro Preparador Oficial de Inglés',
+    textos: ['Niveles B1 · B2 · C'],
+  },
+  {
+    num: '06',
+    titulo: 'Pruebas de Acceso',
+    textos: ['Preparación para la ESO de adultos'],
+  },
+];
+
+const titleClass =
+  'font-display text-[1.7rem] leading-[1.02] font-medium tracking-[-0.025em] transition-[color] duration-[240ms] ease-out-strong group-hover:text-terracotta-deep xs:text-[1.9rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[2.75rem] xl:text-5xl';
+const textClass =
+  'mt-[0.9rem] text-[1.05rem] leading-[1.7] text-ink-soft xs:text-lg md:text-xl lg:text-[1.3rem] xl:text-[1.4rem]';
+const numClass =
+  'font-display text-base leading-[1.6] font-semibold text-terracotta-deep tabular-nums transition-[color] duration-[240ms] ease-out-strong group-hover:text-terracotta md:pt-[0.55rem] md:text-[1.15rem]';
+---
+
+<section id="servicios" class="py-[5.5rem] md:py-32 lg:py-[10.5rem]">
+  <div class="mx-auto w-full max-w-[90rem] px-6 xs:px-8 md:px-12 lg:px-[4.5rem]">
+    <header class="reveal max-w-[36rem]">
+      <SectionLabel num="04" lemma="Aprender con sentido" />
+      <h2
+        class="mt-[1.4rem] font-display text-[2.25rem] leading-[0.98] font-medium tracking-[-0.028em] xs:text-[2.9rem] sm:text-[3.25rem] md:text-[4.25rem] lg:text-[4.75rem] xl:text-[5.25rem]"
+      >
+        Servicios
+      </h2>
+    </header>
+
+    <div class="mt-10 border-t border-line md:mt-16">
+      <article
+        class="group reveal grid grid-cols-1 gap-[0.9rem] border-b border-line py-9 md:grid-cols-[4.5rem_minmax(0,1fr)] md:gap-10 md:py-[3.25rem] lg:grid-cols-[6rem_minmax(0,1fr)] lg:gap-14 lg:py-[3.75rem]"
+      >
+        <span class={numClass}>01</span>
+        <div class="max-w-[66ch]">
+          <h3 class={titleClass}>Refuerzo Educativo</h3>
+          <p class={textClass}>Apoyo escolar personalizado para todas las asignaturas.</p>
+          <p class={textClass}>Niveles: Infantil, Primaria, ESO y Bachillerato.</p>
+
+          <div class="mt-7">
+            <p class="mb-[0.85rem] text-[0.72rem] tracking-[0.2em] text-ink-faint uppercase">Tarifas:</p>
+            <ul class="flex flex-col gap-[0.15rem]">
+              {
+                tarifas.map(tarifa => (
+                  <li class="flex flex-wrap items-baseline gap-[0.6rem] border-b border-line/70 py-[0.65rem] last:border-b-0">
+                    <span class="min-w-[7.5rem] text-ink-soft tabular-nums">{tarifa.horas}</span>
+                    <span class="text-clay-deep" aria-hidden="true">—</span>
+                    <span class="font-display text-[1.35rem] font-semibold text-ink tabular-nums">{tarifa.precio}</span>
+                    <span class="text-[0.9rem] text-ink-faint">{tarifa.nota}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      {
+        servicios.map(servicio => (
+          <article class="group reveal grid grid-cols-1 gap-[0.9rem] border-b border-line py-9 md:grid-cols-[4.5rem_minmax(0,1fr)] md:gap-10 md:py-[3.25rem] lg:grid-cols-[6rem_minmax(0,1fr)] lg:gap-14 lg:py-[3.75rem]">
+            <span class={numClass}>{servicio.num}</span>
+            <div class="max-w-[66ch]">
+              <h3 class={titleClass}>{servicio.titulo}</h3>
+              {servicio.textos.map(texto => (
+                <p class={textClass}>{texto}</p>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

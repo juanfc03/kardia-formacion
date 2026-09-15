@@ -1,0 +1,78 @@
+---
+import { Picture } from 'astro:assets';
+import SectionLabel from '@/components/SectionLabel.astro';
+import fachada from '@/assets/kardia-fachada.jpeg';
+---
+
+<section id="equipo" class="py-[5.5rem] md:py-32 lg:py-[10.5rem]">
+  <div class="mx-auto w-full max-w-[90rem] px-6 xs:px-8 md:px-12 lg:px-[4.5rem]">
+    <header class="reveal max-w-[40rem]">
+      <SectionLabel num="03" lemma="Vocación · Profesionalidad · Sensibilidad" />
+      <h2
+        class="mt-[1.4rem] font-display text-[2.25rem] leading-[0.98] font-medium tracking-[-0.028em] xs:text-[2.9rem] sm:text-[3.25rem] md:text-[4.25rem] lg:text-[4.75rem] xl:text-[5.25rem]"
+      >
+        Nuestro equipo
+      </h2>
+    </header>
+
+    <div
+      class="mt-[2.75rem] flex max-w-[64ch] flex-col gap-[1.8rem] text-lg leading-[1.72] text-ink-soft xs:text-xl md:text-[1.35rem] lg:mt-14 lg:gap-[2.2rem] lg:text-[1.4rem] xl:text-[1.5rem]"
+    >
+      <p class="reveal">
+        Nuestro equipo docente combina vocación, profesionalidad y sensibilidad, cuidando tanto el cómo enseñamos como
+        el qué enseñamos. Diseñamos formaciones vivas, actuales y transformadoras, que conectan con las necesidades de
+        hoy, pero que, sobre todo, respetan la esencia de cada persona. Queremos que aprender no sea una obligación,
+        sino una experiencia que emocione, que motive y que impulse a ir más allá.
+      </p>
+
+      <p class="reveal">
+        Elegir Kardia es apostar por una formación que pone a la persona en el centro, que escucha, que acompaña y que
+        inspira. Es creer en el poder del aprendizaje como motor de cambio. Es confiar en un espacio donde se aprende
+        con sentido, con alma… y con corazón.
+      </p>
+    </div>
+
+    <div
+      class="mt-16 grid gap-[2.75rem] lg:mt-24 lg:grid-cols-[minmax(0,7.2fr)_minmax(0,4.8fr)] lg:items-center lg:gap-x-[4.5rem]"
+    >
+      <div
+        class="parallax-frame reveal aspect-[4/3] rounded-plate border border-line-strong bg-paper-2"
+      >
+        <Picture
+          src={fachada}
+          formats={['avif', 'webp']}
+          widths={[440, 700, 1000, 1300]}
+          sizes="(min-width: 1024px) 46vw, 94vw"
+          quality={72}
+          alt="Fachada del centro de formación Kardia, con el rótulo y las enseñanzas en el escaparate"
+        />
+      </div>
+
+      <blockquote class="equipo-quote reveal relative pl-[1.6rem] md:pl-9">
+        <p
+          class="max-w-[26ch] font-display text-[1.55rem] leading-[1.14] font-medium tracking-[-0.025em] text-ink italic xs:text-[1.8rem] sm:text-[2rem] lg:text-[2.1rem] xl:text-[2.4rem]"
+        >
+          Kardia: donde la educación nace de dentro y llega muy lejos.
+        </p>
+      </blockquote>
+    </div>
+
+    <p
+      class="reveal mt-16 max-w-[30ch] border-t border-line pt-8 font-display text-[1.4rem] leading-[1.25] font-medium tracking-[-0.02em] text-ink xs:text-[1.7rem] sm:text-[2.1rem] md:mt-24 lg:text-[2.4rem] xl:text-[2.7rem]"
+    >
+      Un lugar para aprender, para crecer y para transformar tu propio camino.
+    </p>
+  </div>
+</section>
+
+<style>
+  .equipo-quote::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.3em;
+    bottom: 0.3em;
+    width: 2px;
+    background: var(--color-terracotta);
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+import logo from '@/assets/logo.png';
+
+const legalLinks = [
+  { label: 'Política de Privacidad', href: '/politica-de-privacidad/' },
+  { label: 'Aviso Legal', href: '/aviso-legal/' },
+  { label: 'Cookies', href: '/politica-de-cookies/' },
+];
+---
+
+<footer class="bg-roast text-paper pt-[4.5rem] pb-10 mt-24 lg:pt-24 lg:pb-12">
+  <div class="mx-auto w-full max-w-[90rem] px-6 xs:px-8 md:px-12 lg:px-[4.5rem]">
+    <div class="flex flex-col gap-9 md:flex-row md:items-start md:justify-between md:gap-12">
+      <div class="flex items-center gap-[0.9rem]">
+        <Image class="w-12 h-12 object-contain" src={logo} alt="Kardia" width={80} height={80} />
+        <span class="text-[0.7rem] tracking-[0.26em] uppercase text-clay">Centro de formación</span>
+      </div>
+
+      <nav class="flex flex-col gap-[0.7rem] md:flex-row md:gap-8">
+        {legalLinks.map(link => <a class="footer-link relative text-clay no-underline focus-visible:outline-clay text-[0.92rem] w-fit [transition:color_220ms_var(--ease-out-strong)] hover:text-paper" href={link.href}>{link.label}</a>)}
+      </nav>
+    </div>
+
+    <p
+      class="my-9 font-display text-[clamp(2.25rem,7vw,5rem)] leading-[1.06] font-medium tracking-[-0.04em] text-[color:color-mix(in_oklab,var(--color-clay)_88%,var(--color-roast))] select-none lg:my-10"
+      aria-hidden="true"
+    >
+      Kardia
+    </p>
+
+    <div class="flex flex-col gap-[0.6rem] justify-between pt-7 border-t border-clay/32 text-[0.85rem] text-clay md:flex-row md:items-center md:gap-8">
+      <p>© 2026 Kardia · Todos los derechos reservados</p>
+      <p>
+        Hecho con cariño por
+        <a
+          class="text-clay underline decoration-1 underline-offset-[0.22em] focus-visible:outline-clay decoration-clay/55 [transition:color_220ms_var(--ease-out-strong),text-decoration-color_220ms_var(--ease-out-strong)] hover:text-paper hover:decoration-current"
+          href="https://www.linkedin.com/in/juan-fern%C3%A1ndez-ceacero"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Juan
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -0.2em;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 320ms var(--ease-out-strong);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer-link:hover::after {
+      transform: scaleX(1);
+    }
+  }
+</style>

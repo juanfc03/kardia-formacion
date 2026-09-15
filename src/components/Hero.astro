@@ -1,0 +1,167 @@
+---
+import { Picture } from 'astro:assets';
+import salaPrincipal from '@/assets/kardia-sala-principal-1.jpeg';
+import salaSecundaria from '@/assets/kardia-sala-secundaria.jpeg';
+import entradaFrente from '@/assets/kardia-entrada-frente-2.jpeg';
+
+// La primera placa es el LCP en móvil: se pide con prioridad alta y en todos los
+// tamaños. Las otras dos solo se ven a partir del segundo 8 y el 16 (crossfade),
+// así que van con prioridad baja y menos tamaños: cada KB que se pida antes de
+// tiempo le quita ancho de banda al LCP.
+const plates = [
+  {
+    src: salaPrincipal,
+    alt: 'Aula principal de Kardia, con mesas de trabajo y luz natural entrando por la ventana',
+    eager: true,
+    widths: [480, 768, 1100, 1440],
+  },
+  {
+    src: salaSecundaria,
+    alt: 'Sala de talleres de Kardia preparada para una sesión creativa',
+    eager: false,
+    widths: [480, 768],
+  },
+  {
+    src: entradaFrente,
+    alt: 'Entrada principal del centro de formación Kardia',
+    eager: false,
+    widths: [480, 768],
+  },
+];
+---
+
+<section
+  id="inicio"
+  class="hero relative isolate flex items-center min-h-dvh overflow-hidden pt-27 pb-14 md:pt-34 md:pb-20 lg:pt-38 lg:pb-24"
+>
+  <div
+    class="mx-auto w-full max-w-360 px-6 xs:px-8 md:px-12 lg:px-18 relative z-1 grid grid-cols-1 gap-10 md:gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.18fr)] lg:items-center lg:gap-14 xl:gap-20"
+  >
+    <div class="flex flex-col items-start">
+      <p
+        class="hero-kicker flex items-center gap-[0.8rem] text-terracotta-deep font-medium tracking-[0.2em] uppercase leading-[1.4] mb-[1.4rem] text-[0.7rem] sm:text-[0.78rem]"
+      >
+        <span class="flex-none w-10 h-px bg-current opacity-60" aria-hidden="true"></span>Centro de Formación · Belicena, Granada
+      </p>
+      <h1
+        class="hero-title font-display font-medium leading-[0.95] tracking-[-0.03em] mb-6 md:mb-7 text-[2.6rem] xs:text-5xl sm:text-6xl md:text-7xl lg:text-[4.6rem] xl:text-[5.5rem] 2xl:text-[6rem]"
+      >
+        Bienvenido a <em>Kardia</em>
+      </h1>
+      <p class="hero-sub max-w-[30ch] leading-normal text-ink-soft mb-[2.1rem] md:mb-10 text-lg xs:text-xl sm:text-2xl md:text-[1.7rem] lg:text-[1.7rem] xl:text-[1.9rem]">
+        Donde la educación nace de dentro y llega muy lejos.
+      </p>
+      <div class="hero-actions flex flex-wrap gap-[0.8rem]">
+        <a
+          class="group inline-flex items-center gap-[0.65rem] rounded-control border px-[1.7rem] py-[1.05rem] text-[0.95rem] font-medium leading-none tracking-[0.01em] active:scale-[0.975] [transition:transform_160ms_var(--ease-out-strong),background-color_220ms_var(--ease-out-strong),border-color_220ms_var(--ease-out-strong),color_220ms_var(--ease-out-strong)] border-transparent bg-terracotta-deep text-paper hover:bg-terracotta-dark"
+          href="#sobre"
+        >
+          Descubre Kardia <span class="inline-block transition-transform duration-240 ease-out-strong group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+        <a
+          class="group inline-flex items-center gap-[0.65rem] rounded-control border px-[1.7rem] py-[1.05rem] text-[0.95rem] font-medium leading-none tracking-[0.01em] active:scale-[0.975] [transition:transform_160ms_var(--ease-out-strong),background-color_220ms_var(--ease-out-strong),border-color_220ms_var(--ease-out-strong),color_220ms_var(--ease-out-strong)] border-ink/34 text-ink hover:border-ink hover:bg-ink/6"
+          href="#servicios"
+        >Ver servicios</a>
+      </div>
+    </div>
+
+    <div class="hero-media w-full">
+      <div
+        class="rotate-stack hero-stack aspect-square w-full overflow-hidden rounded-plate border border-line-strong bg-paper-2 md:aspect-16/10 lg:aspect-4/3"
+      >
+        {
+          plates.map(plate => (
+            <Picture
+              src={plate.src}
+              formats={['avif', 'webp']}
+              widths={plate.widths}
+              sizes="(min-width: 1024px) 46vw, 62vw"
+              quality={74}
+              alt={plate.alt}
+              loading={plate.eager ? 'eager' : 'lazy'}
+              fetchpriority={plate.eager ? 'high' : 'low'}
+              decoding="async"
+              class="hero-plate"
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Pseudo-elemento decorativo: resplandor radial tras el contenido del hero. */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      72% 62% at 84% 6%,
+      color-mix(in oklab, var(--color-clay) 42%, transparent),
+      transparent 66%
+    );
+  }
+
+  /* Selector descendiente (.a .b) sobre la salida del componente Picture. */
+  .hero-stack :global(.hero-plate) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @keyframes plate-drift {
+    from {
+      transform: scale(1.02);
+    }
+    to {
+      transform: scale(1.09);
+    }
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 24px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-stack :global(.hero-plate) {
+      animation: plate-drift 27s var(--ease-in-out-strong) infinite alternate;
+    }
+
+    /* La columna de la imagen queda fuera a propósito: animar la opacidad del
+       contenedor del LCP hace que Chrome reporte el LCP móvil ~1 s tarde. */
+    .hero-kicker,
+    .hero-title,
+    .hero-sub,
+    .hero-actions {
+      animation: hero-rise 900ms var(--ease-out-strong) both;
+    }
+
+    .hero-kicker {
+      animation-delay: 60ms;
+    }
+
+    .hero-title {
+      animation-delay: 140ms;
+    }
+
+    .hero-sub {
+      animation-delay: 280ms;
+    }
+
+    .hero-actions {
+      animation-delay: 400ms;
+    }
+
+
+  }
+</style>

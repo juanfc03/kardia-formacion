@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import logo from '@/assets/logo.png';
+import SectionLabel from '@/components/SectionLabel.astro';
+---
+
+<section id="sobre" class="relative overflow-hidden py-[5.5rem] md:py-32 lg:py-[10.5rem]">
+  <Image
+    class="pointer-events-none absolute top-[3%] right-0 z-0 hidden h-[22rem] w-[22rem] object-contain opacity-[0.07] md:block"
+    src={logo}
+    alt=""
+    width={520}
+    height={520}
+    aria-hidden="true"
+  />
+
+  <div
+    class="relative z-[1] mx-auto grid w-full max-w-[90rem] gap-[2.75rem] px-6 xs:px-8 md:px-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,7.5fr)] lg:items-start lg:gap-x-20 lg:px-[4.5rem]"
+  >
+    <header class="lg:sticky lg:top-[8.5rem]">
+      <SectionLabel num="01" lemma="Formar desde el corazón" />
+      <h2
+        class="mt-[1.4rem] font-display text-[2.25rem] leading-[0.98] font-medium tracking-[-0.028em] xs:text-[2.9rem] sm:text-[3.25rem] md:text-[4.25rem] lg:text-[4.75rem] xl:text-[5.25rem]"
+      >
+        Sobre Kardia
+      </h2>
+    </header>
+
+    <div
+      class="flex max-w-[60ch] flex-col gap-[1.9rem] text-lg leading-[1.72] text-ink-soft xs:text-xl md:text-[1.3rem] lg:gap-[2.4rem] lg:text-[1.4rem] xl:text-[1.5rem]"
+    >
+      <p class="reveal text-ink">
+        En Kardia creemos que la educación tiene un latido propio. Cada persona aprende de una manera distinta, siente
+        de una forma única y avanza a su propio ritmo. Por eso, nuestro proyecto nace con un propósito claro: formar
+        desde el corazón hacia el corazón, acompañando a cada alumno de manera cercana, respetuosa y significativa.
+      </p>
+
+      <p
+        class="sobre-sign reveal relative font-display text-[1.75rem] font-medium italic leading-[1.2] tracking-[-0.02em] text-ink xs:text-[2rem] sm:text-[2.35rem] lg:text-[2.6rem] xl:text-[2.9rem]"
+      >
+        Kardia · Belicena (Granada)
+      </p>
+
+      <p class="reveal">
+        Aquí no pensamos en la formación como una simple transmisión de conocimientos. La entendemos como un viaje
+        compartido, donde cada descubrimiento suma, cada pregunta abre una puerta y cada avance —por pequeño que
+        parezca— tiene un enorme valor. En Kardia creamos un espacio seguro, inspirador y humano donde nuestros alumnos
+        pueden crecer, confiar y desplegar todo su potencial.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sobre-sign::before {
+    content: "";
+    display: block;
+    width: 3.5rem;
+    height: 2px;
+    background: var(--color-terracotta);
+    margin-bottom: 1.1rem;
+  }
+</style>

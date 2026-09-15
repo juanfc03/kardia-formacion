@@ -1,14 +1,33 @@
 ---
 import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
 import '@/styles/global.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import CookieBanner from '@/components/CookieBanner.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Kardia · Centro de formación en Belicena, Granada',
+  description = 'Kardia es un centro de formación en Belicena, Granada: refuerzo educativo, talleres, formación TIC y apoyo psicológico, con una educación cercana y humana.',
+} = Astro.props;
+
+// Tarjeta que genera src/pages/open-graph/[...route].ts en el build.
+const origen = Astro.site ?? Astro.url.origin;
+const canonicas = new URL(Astro.url.pathname, origen);
+const tarjeta = new URL('/open-graph/kardia.png', origen);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -16,23 +35,37 @@ import '@/styles/global.css';
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Kardia" />
     <link rel="manifest" href="/site.webmanifest" />
-    <title>Astro Basics</title>
+    <title>{title}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kardia" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicas.href} />
+    <meta property="og:image" content={tarjeta.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kardia, centro de formación en Belicena, Granada" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={tarjeta.href} />
+    <ClientRouter />
 
-    {/* Fraunces is the hero display face: preload it. Inter is body/label text and
-        is intentionally not preloaded to avoid competing for critical bandwidth. */}
-    <Font cssVariable="--font-fraunces" preload />
+    {
+      /* Fraunces es la tipografía display del hero: se precarga. Inter es texto de
+        cuerpo y etiquetas, y no se precarga a propósito para no competir por el
+        ancho de banda crítico. Solo se precarga la recta: la itálica es una palabra
+        del titular del hero y sus 146 KB en el camino crítico retrasan la imagen del
+        LCP más de lo que aporta esa palabra, así que se carga bajo demanda. */
+    }
+    <Font cssVariable="--font-fraunces" preload={[{ subset: 'latin', style: 'normal' }]} />
     <Font cssVariable="--font-inter" />
   </head>
   <body>
-    <slot />
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <CookieBanner />
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

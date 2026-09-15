@@ -1,0 +1,29 @@
+---
+interface Props {
+  titulo: string;
+}
+
+const { titulo } = Astro.props;
+---
+
+<div class="pt-28 pb-24 md:pt-36 md:pb-32">
+  <div class="mx-auto w-full max-w-[90rem] px-6 xs:px-8 md:px-12 lg:px-[4.5rem]">
+    <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-line pb-6">
+      <a
+        class="text-[0.85rem] tracking-[0.04em] text-ink-soft no-underline transition-[color] duration-[220ms] ease-out-strong hover:text-terracotta-deep"
+        href="/">← Volver al inicio</a
+      >
+      <p class="text-[0.78rem] tracking-[0.14em] text-ink-faint uppercase">
+        Última actualización: Septiembre de 2026
+      </p>
+    </div>
+    <h1
+      class="mt-8 font-display text-[2.25rem] leading-[0.98] font-medium tracking-[-0.028em] xs:text-[2.9rem] sm:text-[3.25rem] md:text-[4.25rem] lg:text-[4.75rem] xl:text-[5.25rem]"
+    >
+      {titulo}
+    </h1>
+    <div class="prose-editorial mt-10 md:mt-14">
+      <slot />
+    </div>
+  </div>
+</div>
