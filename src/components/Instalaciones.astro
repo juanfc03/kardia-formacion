@@ -74,7 +74,7 @@ const plates = [
   </div>
 
   <div
-    class="filmstrip-viewport mt-14 [-webkit-mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)] md:mt-20"
+    class="filmstrip-viewport mt-14 [-webkit-mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)] [mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)] [content-visibility:auto] [contain-intrinsic-size:auto_280px] sm:[contain-intrinsic-size:auto_360px] lg:[contain-intrinsic-size:auto_456px] md:mt-20"
     data-filmstrip
   >
     <div class="filmstrip-track">
@@ -90,8 +90,8 @@ const plates = [
                   <Picture
                     src={plate.src}
                     formats={['avif', 'webp']}
-                    widths={[380, 560, 800]}
-                    sizes="(min-width: 768px) 32rem, 80vw"
+                    widths={[380, 480, 640, 800]}
+                    sizes="(min-width: 1024px) 555px, (min-width: 640px) 427px, 320px"
                     quality={70}
                     alt={plate.alt}
                     loading="lazy"
